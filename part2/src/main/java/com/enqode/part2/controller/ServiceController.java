@@ -19,6 +19,7 @@ public class ServiceController {
 
     @GetMapping("/scan")
     public Mono<ResponseEntity<String>> scanDomain(@RequestParam String domain) {
+        log.info("Scanning dark web data for domain: {}", domain);
         return darkWebScannerService.scanDomain(domain);
     }
 }
