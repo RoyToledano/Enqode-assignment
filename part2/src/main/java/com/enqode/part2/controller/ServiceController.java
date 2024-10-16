@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @Slf4j
 public class ServiceController {
-    private DarkWebScannerService darkWebScannerService;
+    private final DarkWebScannerService darkWebScannerService;
 
     @GetMapping("/scan")
     public Mono<ResponseEntity<String>> scanDomain(@RequestParam String domain) {
