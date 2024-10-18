@@ -1,5 +1,6 @@
 package com.enqode.part2.controller;
 
+import com.enqode.part2.dto.response.DetailedInformationResponse;
 import com.enqode.part2.service.DarkWebScannerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ public class ServiceController {
     private final DarkWebScannerService darkWebScannerService;
 
     @GetMapping("/scan")
-    public Mono<ResponseEntity<String>> scanDomain(@RequestParam String domain) {
+    public Mono<ResponseEntity<DetailedInformationResponse>> scanDomain(@RequestParam String domain) {
         log.info("Scanning dark web data for domain: {}", domain);
         return darkWebScannerService.scanDomain(domain);
     }

@@ -1,5 +1,6 @@
 package com.enqode.part2.service;
 
+import com.enqode.part2.dto.response.DetailedInformationResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,13 +14,13 @@ import reactor.core.publisher.Mono;
 public class DarkWebScannerService {
     private final IntelXService intelXService;
 
-    public Mono<ResponseEntity<String>> scanDomain(String domain) {
+    public Mono<ResponseEntity<DetailedInformationResponse>> scanDomain(String domain) {
         return intelXService.searchDomain(domain)
                 .map(ResponseEntity::ok)
                 .onErrorResume(error -> {
                     log.error("Error while scanning domain {}", domain, error);
                     return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                            .body("An error occurred: " + error.getMessage()));
+                            .body(new DetailedInformationResponse()));
                 });
     }
 }

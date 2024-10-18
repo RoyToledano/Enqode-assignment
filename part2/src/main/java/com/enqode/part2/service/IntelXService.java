@@ -1,5 +1,6 @@
 package com.enqode.part2.service;
 
+import com.enqode.part2.dto.response.DetailedInformationResponse;
 import com.enqode.part2.dto.response.IntelligentSearchRequestResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -19,12 +20,12 @@ public class IntelXService {
         this.webClient = webClientBuilder.baseUrl("https://2.intelx.io").build();
     }
 
-    public Mono<String> searchDomain(String domain) {
+    public Mono<DetailedInformationResponse> searchDomain(String domain) {
         return sendSearchRequest(domain)
                 .flatMap(response -> {
                     // Use the ID from the first response to make the second request
                     String id = response.id();
-                    Mono<String> detailedInformation = getDetailedInformation(id);
+                    Mono<DetailedInformationResponse> detailedInformation = getDetailedInformation(id);
                     sendTerminateSearchRequest(id);
                     return detailedInformation;
                 });
@@ -55,7 +56,7 @@ public class IntelXService {
                 .bodyToMono(IntelligentSearchRequestResponse.class);
     }
 
-    private Mono<String> getDetailedInformation(String id) {
+    private Mono<DetailedInformationResponse> getDetailedInformation(String id) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/intelligent/search/result")
@@ -64,7 +65,7 @@ public class IntelXService {
                         .build())
                 .header("x-key", apiKey)
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(DetailedInformationResponse.class);
     }
 
     private void sendTerminateSearchRequest(String id) {
