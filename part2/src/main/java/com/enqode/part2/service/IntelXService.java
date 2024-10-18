@@ -22,6 +22,13 @@ public class IntelXService {
         this.webClient = webClientBuilder.baseUrl("https://2.intelx.io").build();
     }
 
+    /**
+     * Send search request to IntelX API and then pull the results.
+     * After successfully pull, the method sends request to terminate the search.
+     * @param domain The given domain.
+     * @param limit The given number of records requested.
+     * @return The detailed information of the search result.
+     */
     public Mono<DetailedInformationResponse> searchDomain(String domain, int limit) {
         return sendSearchRequest(domain)
                 .flatMap(response -> {
@@ -35,6 +42,11 @@ public class IntelXService {
                 });
     }
 
+    /**
+     * Send search request to IntelX API and return the search request response.
+     * @param domain The given domain.
+     * @return The search request response.
+     */
     private Mono<IntelligentSearchRequestResponse> sendSearchRequest(String domain) {
         String requestBody = String.format("""
                 {
@@ -60,6 +72,12 @@ public class IntelXService {
                 .bodyToMono(IntelligentSearchRequestResponse.class);
     }
 
+    /**
+     * Send request to pull the search results from IntelX API.
+     * @param id The search ID.
+     * @param limit The given number of records requested.
+     * @return The detailed information of the search result.
+     */
     private Mono<DetailedInformationResponse> getDetailedInformation(String id, int limit) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
@@ -72,6 +90,10 @@ public class IntelXService {
                 .bodyToMono(DetailedInformationResponse.class);
     }
 
+    /**
+     * Send request to terminate the search.
+     * @param id The search ID.
+     */
     private void sendTerminateSearchRequest(String id) {
         webClient.get()
                 .uri(uriBuilder -> uriBuilder

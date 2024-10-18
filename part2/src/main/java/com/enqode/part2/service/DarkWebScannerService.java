@@ -14,6 +14,13 @@ import reactor.core.publisher.Mono;
 public class DarkWebScannerService {
     private final IntelXService intelXService;
 
+    /**
+     * Run intelX's service 'search domain' method and return the result.
+     * In case of an error, the method throws an exception.
+     * @param domain The given domain.
+     * @param limit The given number of records requested.
+     * @return The detailed information of the search result.
+     */
     public Mono<ResponseEntity<DetailedInformationResponse>> scanDomain(String domain, int limit) {
         return intelXService.searchDomain(domain, limit)
                 .map(ResponseEntity::ok)
