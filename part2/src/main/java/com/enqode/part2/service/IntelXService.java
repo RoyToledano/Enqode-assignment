@@ -2,6 +2,7 @@ package com.enqode.part2.service;
 
 import com.enqode.part2.dto.response.DetailedInformationResponse;
 import com.enqode.part2.dto.response.IntelligentSearchRequestResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
+@Slf4j
 public class IntelXService {
     private final WebClient webClient;
 
@@ -23,10 +25,12 @@ public class IntelXService {
     public Mono<DetailedInformationResponse> searchDomain(String domain) {
         return sendSearchRequest(domain)
                 .flatMap(response -> {
-                    // Use the ID from the first response to make the second request
+                    log.info("Successfully search domain request sent {}", domain);
                     String id = response.id();
                     Mono<DetailedInformationResponse> detailedInformation = getDetailedInformation(id);
+                    log.info("Detailed information received");
                     sendTerminateSearchRequest(id);
+                    log.info("Successfully terminate search request sent {}", id);
                     return detailedInformation;
                 });
     }
