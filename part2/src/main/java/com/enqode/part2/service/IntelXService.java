@@ -22,12 +22,12 @@ public class IntelXService {
         this.webClient = webClientBuilder.baseUrl("https://2.intelx.io").build();
     }
 
-    public Mono<DetailedInformationResponse> searchDomain(String domain) {
+    public Mono<DetailedInformationResponse> searchDomain(String domain, int limit) {
         return sendSearchRequest(domain)
                 .flatMap(response -> {
                     log.info("Successfully search domain request sent {}", domain);
                     String id = response.id();
-                    Mono<DetailedInformationResponse> detailedInformation = getDetailedInformation(id);
+                    Mono<DetailedInformationResponse> detailedInformation = getDetailedInformation(id, limit);
                     log.info("Detailed information received");
                     sendTerminateSearchRequest(id);
                     log.info("Successfully terminate search request sent {}", id);
@@ -60,12 +60,12 @@ public class IntelXService {
                 .bodyToMono(IntelligentSearchRequestResponse.class);
     }
 
-    private Mono<DetailedInformationResponse> getDetailedInformation(String id) {
+    private Mono<DetailedInformationResponse> getDetailedInformation(String id, int limit) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/intelligent/search/result")
                         .queryParam("id", id)
-                        .queryParam("limit", 10)
+                        .queryParam("limit", limit)
                         .build())
                 .header("x-key", apiKey)
                 .retrieve()

@@ -14,8 +14,8 @@ import reactor.core.publisher.Mono;
 public class DarkWebScannerService {
     private final IntelXService intelXService;
 
-    public Mono<ResponseEntity<DetailedInformationResponse>> scanDomain(String domain) {
-        return intelXService.searchDomain(domain)
+    public Mono<ResponseEntity<DetailedInformationResponse>> scanDomain(String domain, int limit) {
+        return intelXService.searchDomain(domain, limit)
                 .map(ResponseEntity::ok)
                 .onErrorResume(error -> {
                     log.error("Error while scanning domain {}", domain, error);
