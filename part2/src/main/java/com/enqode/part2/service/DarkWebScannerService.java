@@ -19,8 +19,7 @@ public class DarkWebScannerService {
                 .map(ResponseEntity::ok)
                 .onErrorResume(error -> {
                     log.error("Error while scanning domain {}", domain, error);
-                    return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                            .body(new DetailedInformationResponse()));
+                    throw new RuntimeException(error.getMessage());
                 });
     }
 }
