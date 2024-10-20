@@ -79,7 +79,7 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await fetch('/data/zero-trust-multiple-companies.json');
+        const response = await fetch('/data/zero-trust-data.json');
         if (!response.ok) throw new Error('Failed to load JSON data');
         const jsonData = await response.json();
         this.companies = jsonData.companies;

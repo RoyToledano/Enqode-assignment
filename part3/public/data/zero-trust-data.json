@@ -1,0 +1,60 @@
+{
+    "companies": [
+        {
+            "companyName": "FinTechSecure Ltd.",
+            "ZeroTrustScore": 58.5,
+            "metrics": {
+                "ShannonEntropyScore": 7.8,
+                "firewallDetected": true,
+                "DNSsecEnabled": true,
+                "tlsVersion": "1.2",
+                "certificateBitStrength": 2048,
+                "openPortsDetected": 12
+            },
+            "observableData": {
+                "securityHeadersImplemented": [
+                    "X-XSS-Protection",
+                    "X-Frame-Options"
+                ]
+            },
+            "riskCategory": "Moderate Risk"
+        },
+        {
+            "companyName": "CyberDefense Corp.",
+            "ZeroTrustScore": 72.4,
+            "metrics": {
+                "ShannonEntropyScore": 8.3,
+                "firewallDetected": true,
+                "DNSsecEnabled": false,
+                "tlsVersion": "1.3",
+                "certificateBitStrength": 4096,
+                "openPortsDetected": 5
+            },
+            "observableData": {
+                "securityHeadersImplemented": [
+                    "Strict-Transport-Security",
+                    "Content-Security-Policy"
+                ]
+            },
+            "riskCategory": "Low Risk"
+        },
+        {
+            "companyName": "DataSafe Solutions",
+            "ZeroTrustScore": 48.2,
+            "metrics": {
+                "ShannonEntropyScore": 6.1,
+                "firewallDetected": false,
+                "DNSsecEnabled": false,
+                "tlsVersion": "1.1",
+                "certificateBitStrength": 1024,
+                "openPortsDetected": 25
+            },
+            "observableData": {
+                "securityHeadersImplemented": [
+                    "X-Content-Type-Options"
+                ]
+            },
+            "riskCategory": "High Risk"
+        }
+    ]
+}
