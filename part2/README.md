@@ -95,7 +95,7 @@ An explanation of the response can be found in the IntelX documentation [here](h
 * The API is now running and listening on port 8080.
   
 ### Option 2:
-* You can download the release package here.
+* You can download the release package [here](https://github.com/RoyToledano/Enqode-assignment/releases/tag/v1.0).
 * Extract the directory from the zip file.
 * Run the following command in the terminal inside the extracted directory:
   ```
