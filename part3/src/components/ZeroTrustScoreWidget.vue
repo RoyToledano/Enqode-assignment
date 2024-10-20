@@ -4,43 +4,47 @@
     <v-card
       v-for="(company, index) in companies"
       :key="index"
-      class="pa-4 mb-5"
-      elevation="4"
-      style="border-radius: 16px;"
+      class="pa-2 mb-3"
+      elevation="2"
+      style="border-radius: 12px; max-width: 500px;"
     >
       <v-row justify="center">
         <v-col cols="12" sm="6" class="text-center">
-          <v-card-title class="font-weight-bold mb-2" style="font-size: 1.5rem;">
+          <v-card-title class="font-weight-bold mb-1" style="font-size: 1.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
             {{ company.companyName }}
           </v-card-title>
-          <v-card-subtitle class="mb-4 text-subtitle-1">Overall Zero-Trust Score</v-card-subtitle>
+          <v-card-subtitle class="mb-2 text-subtitle-2">Overall Zero-Trust Score</v-card-subtitle>
           <v-progress-circular
             v-model="company.ZeroTrustScore"
-            :size="120"
-            :width="15"
+            :size="80"
+            :width="10"
             color="primary"
             rotate="270"
             class="mx-auto"
           >
-            <span style="font-size: 1.25rem;">{{ company.ZeroTrustScore }}</span>
+            <span style="font-size: 1rem;">{{ company.ZeroTrustScore }}</span>
           </v-progress-circular>
         </v-col>
       </v-row>
 
       <!-- Metrics Section -->
-      <v-card class="pa-4 mt-4" style="background-color: #f7f9fc; border-radius: 12px;">
-        <v-card-title class="text-h6 font-weight-bold">Metrics</v-card-title>
-        <v-divider class="mb-4"></v-divider>
+      <v-card class="pa-2 mt-2" style="background-color: #f7f9fc; border-radius: 8px;">
+        <v-card-title class="text-h6 font-weight-bold style=font-size: 1rem;">Metrics</v-card-title>
+        <v-divider class="mb-2"></v-divider>
         <v-row>
           <v-col cols="12" v-for="(metric, index) in getMetrics(company)" :key="index">
-            <v-row justify="space-between" class="align-center mb-3">
-              <span>{{"- " + metric.label }}: <strong>{{ metric.value.toFixed(0) }}%</strong></span>
+            <v-row justify="space-between" class="align-center mb-2">
+              <span style="display: block; margin-bottom: 4px; margin-top: 4px; margin-left: 10px;">
+                {{ "- " + metric.label }}: <strong>{{ metric.value.toFixed(0) }}%</strong>
+              </span>
               <v-progress-linear
                 v-model="metric.value"
                 color="blue lighten-1"
                 striped
-                height="15"
-                style="width: 60%; border-radius: 8px;"
+                height="10"
+                class="ml-2"
+                rounded 
+                style="width: 90%;"
               ></v-progress-linear>
             </v-row>
           </v-col>
@@ -48,16 +52,16 @@
       </v-card>
 
       <!-- Risk Category -->
-      <v-card class="pa-4 mt-4">
-        <v-card-title class="text-h6 font-weight-bold">Risk Category</v-card-title>
+      <v-card class="pa-2 mt-2">
+        <v-card-title class="text-h6 font-weight-bold" style="font-size: 1rem;">Risk Category</v-card-title>
         <v-alert
           :type="getRiskCategoryColor(company.riskCategory)"
           border="left"
           prominent
-          class="ma-2"
+          class="ma-1"
           dense
           outlined
-          style="font-size: 1.15rem;"
+          style="font-size: 0.9rem;"
         >
           {{ company.riskCategory }}
         </v-alert>
@@ -133,7 +137,7 @@ export default {
 
 <style scoped>
 .v-container {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .v-card {
