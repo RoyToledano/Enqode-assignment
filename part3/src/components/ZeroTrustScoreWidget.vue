@@ -35,7 +35,7 @@
           <v-col cols="12" v-for="(metric, index) in getMetrics(company)" :key="index">
             <v-row justify="space-between" class="align-center mb-2">
               <span style="display: block; margin-bottom: 4px; margin-top: 4px; margin-left: 10px;">
-                {{ "- " + metric.label }}: <strong>{{ metric.value.toFixed(0) }}%</strong>
+                {{ "● " + metric.label }}: <strong>{{ metric.value.toFixed(0) }}%</strong>
               </span>
               <v-progress-linear
                 v-model="metric.value"
