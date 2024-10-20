@@ -15,7 +15,7 @@
           </v-card-title>
           <v-card-subtitle class="mb-4 text-subtitle-1">Overall Zero-Trust Score</v-card-subtitle>
           <v-progress-circular
-            :value="company.ZeroTrustScore"
+            v-model="company.ZeroTrustScore"
             :size="120"
             :width="15"
             color="primary"
@@ -34,9 +34,9 @@
         <v-row>
           <v-col cols="12" v-for="(metric, index) in getMetrics(company)" :key="index">
             <v-row justify="space-between" class="align-center mb-3">
-              <span>{{ metric.label }}: <strong>{{ metric.value.toFixed(0) }}%</strong></span>
+              <span>{{"- " + metric.label }}: <strong>{{ metric.value.toFixed(0) }}%</strong></span>
               <v-progress-linear
-                :value="metric.value"
+                v-model="metric.value"
                 color="blue lighten-1"
                 striped
                 height="15"
