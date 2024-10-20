@@ -69,10 +69,82 @@
 <script>
 export default {
   data() {
-  }
+    return {
+      companies: null,
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      try {
+        const response = await fetch('/data/zero-trust-multiple-companies.json');
+        if (!response.ok) throw new Error('Failed to load JSON data');
+        const jsonData = await response.json();
+        this.companies = jsonData.companies;
+      } catch (error) {
+        console.error('Error loading data:', error);
+      }
+    },
+    getMetrics(company) {
+      return [
+        {
+          label: "Shannon Entropy Score",
+          value: (company.metrics.ShannonEntropyScore / 10) * 100,
+        },
+        {
+          label: "Certificate Bit Strength",
+          value: (company.metrics.certificateBitStrength / 4096) * 100,
+        },
+        {
+          label: "Open Ports Detected",
+          value: (1 - company.metrics.openPortsDetected / 100) * 100,
+        },
+        {
+          label: "Firewall Detected",
+          value: company.metrics.firewallDetected ? 100 : 0,
+        },
+        {
+          label: "DNSsec Enabled",
+          value: company.metrics.DNSsecEnabled ? 100 : 0,
+        },
+        {
+          label: "TLS Version",
+          value: company.metrics.tlsVersion === "1.3" ? 100 : 50,
+        },
+      ];
+    },
+    getRiskCategoryColor(riskCategory) {
+      switch (riskCategory) {
+        case "Low Risk":
+          return "success";
+        case "Moderate Risk":
+          return "warning";
+        case "High Risk":
+          return "error";
+        default:
+          return "info";
+      }
+    }
+  },
 };
 </script>
 
 <style scoped>
-//implement
+.v-container {
+  padding-top: 20px;
+}
+
+.v-card {
+  background-color: white;
+}
+
+.v-progress-linear {
+  transition: width 0.6s ease-in-out;
+}
+
+.v-card-title {
+  font-weight: bold;
+}
 </style>
