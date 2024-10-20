@@ -1,18 +1,10 @@
 # Enqode-assignment
 
-## Part 1:
-The given JavaScript code will output to the console the following result:
-```
-The element in position 5 is: undefined
-The element in position 5 is: undefined
-The element in position 5 is: undefined
-The element in position 5 is: undefined
-The element in position 5 is: undefined
-```
+## Hi!
+### General information:
+* Each part of the assignment is located in its relevant directory above, including README files with instructions on how to set up the components.
+* **Part 2:** I used IntelligenceX to retrieve dark web data. They provided a trial account for 1 week, which means that after 27/10/2024, my API key for their service will expire. If you review this assignment after that date, please inform me before your review, and I will renew the API key and update the assignment accordingly.
+  
+Thank You!
 
-**Explain:**
-The variable 'i' is declared using 'var', which is function-scoped, not block-scoped. 
-This means that 'var' does not create a new 'i' for each iteration of the loop. Instead, the same 'i' is shared across all iterations.
-When the 'setTimeout' callback executes after 5 seconds, the for loop has already completed, and the value of 'i' has been incremented to the array's length, which is 5.
-As a result, all the callbacks will see the final value of 'i', which is 5. Since there is no element at index 5 in the array, it prints undefined, because array[5] does not exist.
 
