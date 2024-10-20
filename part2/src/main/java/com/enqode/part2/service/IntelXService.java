@@ -25,14 +25,14 @@ public class IntelXService {
     /**
      * Send search request to IntelX API and then pull the results.
      * After successfully pull, the method sends request to terminate the search.
-     * @param domain The given domain.
+     * @param selector The given selector.
      * @param limit The given number of records requested.
      * @return The detailed information of the search result.
      */
-    public Mono<DetailedInformationResponse> searchDomain(String domain, int limit) {
-        return sendSearchRequest(domain)
+    public Mono<DetailedInformationResponse> searchSelector(String selector, int limit) {
+        return sendSearchRequest(selector)
                 .flatMap(response -> {
-                    log.info("Successfully search domain request sent {}", domain);
+                    log.info("Successfully search selector request sent {}", selector);
                     String id = response.id();
                     Mono<DetailedInformationResponse> detailedInformation = getDetailedInformation(id, limit);
                     log.info("Detailed information received");
