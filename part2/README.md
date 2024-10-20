@@ -1,49 +1,122 @@
-# Part 3: Zero-Trust Score Widget
+# Part 2: Darkweb Scanner API
 
 ## Overview
-The Zero-Trust Score widget represents the Zero-Trust score of a given company.  
-The widget includes the company's overall Zero-Trust score along with each metric score and the risk category.  
-The component is created using Vue.js and the Vuetify library.
+he Dark Web Scanner is a cURL-based API that queries dark web data relevant to a specified selector (e.g., domain). 
 
-**Examples:**
+It uses a third-party API provider, IntelligenceX, to retrieve dark web data. 
 
-<br />
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/00454ea0-11ad-49fb-9b8f-f65021896e00" width="300" style="margin-right: 20px;" />
-  <img src="https://github.com/user-attachments/assets/d65fd332-0c2c-41be-a6c4-29c35138b4af" width="300" style="margin-right: 20px;" />
-  <img src="https://github.com/user-attachments/assets/fc2cc149-107f-4e5c-be1d-45295df58f19" width="300" />
-</p>
+The API is built using Java and Spring Boot.
 
 <br />
+
+## Endpoint
+**BASE URL:** `/api/darkweb`.
+
+- **Method:**  GET
+
+- **Endpoint:**  `/scan`
+
+- **Description:**  Retrieves dark web data for the given selector.
+
+- **Query Parameters:**
+  - `selector` (String) – The selector to search for (see the list of supported selector types below).
+  - `limit` (Integer) - The number of records to retrieve.
+
+- **Response:**
+  ```json
+    {
+       "records": [{
+           "systemid": "f13fdfc7-2ef6-42a4-bccf-61ff57971bd9",
+           "storageid": "143cd96f978d7a7d43127b65b096c99462354098db599cf0daa684a8fb69932b7f0b0420973bc99a83193ff98970a89a5b2e09bb0b4957e13427b2c0394d3407",
+           "instore": true,
+           "size": 4315485,
+           "accesslevel": 0,
+           "type": 1,
+           "media": 1,
+           "added": "2017-12-14T07:35:50.998926Z",
+           "date": "2017-12-14T07:35:05Z",
+           "name": "",
+           "description": "",
+           "xscore": 68,
+           "simhash": 15623487490024384908,
+           "bucket": "pastes",
+           "keyvalues": null,
+           "tags": null,
+           "relations": [{
+               "target": "07c11339-1066-4906-9490-9b93d2c35690",
+               "relation": 0
+           }],
+           "accesslevelh": "Public",
+           "mediah": "Paste",
+           "simhashh": "d8d1c7186ba9a98c",
+           "typeh": "Text",
+           "tagsh": null,
+           "randomid": "f2737370-e182-4707-ad7a-a8f6a3320934",
+     }],
+     "status": 0
+  }
+
+
+An explanation of the response can be found in the IntelX documentation [here](https://github.com/IntelligenceX/SDK/blob/master/Intelligence%20X%20API.pdf) on page 10.
+
+**List of supported selector types:**
+
+* Email address
+* Domain, including wildcards like *.example.com
+* URL
+* IPv4 and IPv6
+* CIDRv4 and CIDRv6
+* Phone Number
+* Bitcoin address
+* MAC address
+* IPFS Hash
+* UUID
+* Storage ID
+* System ID
+* Simhash
+* Credit card number
+* IBAN
+
 
 ## Deployment
-### Option 1:
-* You can test the component using the Vuetify Playground by clicking [here](https://play.vuetifyjs.com/#eNq1WM1y2zYQfpWtOhnHbSjLSuLYjN1Om8TTg5N0ak8PjX2ASEhEDQEcANRPPX6GHvt+fZIuSPAHIOW46VQHiQB2sf/fLvXpbqRVcvBDno9XBR3Fo1NDlzknhn53LQBOV1EihSFMUFVu4NZXUQQXUuZgMiWLRQaUJBkkcpkTsQUjIWUab8DHjMKapQtqIIpqbryQqLRaAKyiuVRn16Onjv0ZMJHSzT7+uBsZ1dejmjy+pVukLmna3YQTrXE7J9EUlrPoeXtEOV0Rw6TA42m7rc2WU9yaSZVSFSmSskLHcDjNN69hSTYRqm2yGF5OJnkjyFlQ2qDkGn4vtGFzq09ChaHqetRQOMdxtIFbzQ5RNuglPh3hQ62voRsTDfA2XooMM5x2D1pj5xiWaE3ZIjPRTPLUGn7YWujb6e8ClMya/UHR5vFU0eXrkGKdMUMjnZMEaYRcK5L3aOSKqjmX6xgylqZU9AhKA1sqyjnLNdMBna+e5weAu7s6s8bu9wNZUri/99x10PXXoCd1MSsPG/+hu6aVgvVR1EkQp8tH1J1wDr9RJaMrhQGHy0Qq2giseXdagPJzJReKah0lTCUFJ8oXsoqWMqXcppEz1EorhZWyQqViGzekPp70TsqstenWO8I8LOssV2xJ1DY8VtJgxdsaedVnrR22iUhh5IPROsWEEU3WdbMMcwxzvBNN30gM6OmBZfadh27uea9bZDYMkreFiWusTFw3Oxas3lOjWKLhkiYWClow6sFRiCXGz4kGNkhyu0DsE6kVL1UMX89fzU/myWsIEOW4hQ/PWV6B+4CQHVXl2altCx67fOpFw1nq10NL4SuQshVDXb2KwBhZZnfk01ee9UtL8l6e1XgXZrkD+mWpYhfnsT84vesusN/L7EHcH0rAEJpLBItm1KwpFR3sJZwthANfC53W8hC+ymwON3eDqv241hfDjMvktgeI9oP1t2AC42qMXMbwAlvOA2RG5p+l4XRuMB2wVQ1Q9fXs2Vmi7PXo77/+xG/4FqoQjTmZUY6FGffpT7VRUixsPTviFeEFHRt5zjY0fTrZR74nWNEVWc+x/VIPsZLjxBEipY+WXcFDwaghb4bngNHODBX9DlkFVLGcdkCg/mRlCQ4CqoeMvN86KlRFhBi6t84gN2WcTJ4MRMkDv8odYbI3cBe0wg4k9qlqcAhR8hemb+ENtoGFVNsBjByCxv8f0TytHodrhFNlupfEZptbSQg09rr6tjc2QWrIGavOSYA/GIUl+l94lzbBJ2FS4SSkvYFAFsbGz0uEAesn45PAfi+ynd7Z1dUbhayDSvOHot1bVrnSTvenB53ZH5c6wbqorqKbXCqDps1JwQ3cVbelxJCn+/UKE56aQol2bYvQzfAxfPKMCdtGM9rFsHfOxBVNMmzXBU4GFyYd7z3z6f3hAef04/HLgKSCB5QbiAK4zIgQUrwTCE751t3wanwcXIBTMlN0jePfW2pwcqBpDEYVtEf29sOlpsk7QWZ8J43h+leqNE4faB+O3KFB6AKMGpuzBL3/IzOXRlGxsOAwnbzoayZzKn7GgOhWtcNpQHUfrLtJg0q8RxhVuCzr3leny3nTPLs0qw/Rv5lMu/4d6ONd57vkeCgNyo6DurkIgQtRNXOHLiuBP4amgF3AxwPhhQPsjvvwDX5Pdlq6U5s3bWQAQwN1bB6r0HBkUacXk5OjL9bqI6YAlDkAdRLsUugQogY6aqV6GVT66MuddO5q5XPKhHqENQbfW/mAaPjvdagKEbOmrMRHKuBV73+RfnVxCa7GHym6BQU4OzuzuPB8r9Hg5W4VbpqSbDYHW5vX0rpq6zUz+JfNbgKEI6Ip7F3gLF3iQzADulre00WS4Hiy1+f04WUH+5oowcRigP0nnBQeZKVKSeUxut60g56JueyQNz2zdmH1i9s4m9Ztz7ZA26ZBJ1guVc8cd1pm7bGcpCmaUc3qzRiOd9UMdnpytP1Xx/KfloAjmPtqZqOI0My+wyKbnR1xZjjS+P+bphG+B+CcMSDZTWTuis4ghi8pOInVHHZYR1vRyNH9M1FwXn7d/AN7kK0r).
-* Since the Vuetify Playground doesn't allow loading files from external URLs directly, the JSON data is part of the component's data object. You can modify (add more companies, change company data...) here:
-<img src="https://github.com/user-attachments/assets/14d02b07-0f8c-464e-a616-cdbff4ddb68d" width="600" style="margin-right: 20px;" />
-
-<br />
-
-For your convenience, you can use [this](https://github.com/user-attachments/files/17450987/zero-trust-data.json) JSON file with two more companies' data.
-
+### Option 1 Using DockerHub:
+* You can use Docker to set up the API on your machine.
+* Ensure that Docker Engine is installed on your machine.
+* Open the terminal and follow these steps:
+  
+   **Step 1:** Pull the docker image:
+  ```
+  docker pull roytoledano/dark-web-scanner:1.0
+  ```
+   **Step 2:** Run the container:
+  ```
+  docker run -p 8080:8080 roytoledano/dark-web-scanner:1.0
+  ```
+* The API is now running and listening on port 8080.
+  
 ### Option 2:
-* You can integrate the widget within your Vue application.
-* Ensure that Vuetify is installed in your project. If it's not installed, you can add it by running the following command in your terminal, inside your Vue project directory:
+* You can download the release package here.
+* Extract the directory from the zip file.
+* Run the following command in the terminal inside the extracted directory:
   ```
-  vue add vuetify
+  java -jar dark-web-scanner.jar
   ```
-* Download the component from [here](https://raw.githubusercontent.com/RoyToledano/Enqode-assignment/main/part3/src/components/ZeroTrustScoreWidget.vue).
-* Add the component file to the "components" directory in your Vue application project.
-* Create a new directory inside the "public" directory named "data".
-* Add the JSON file provided in Option 1 above, or create another JSON file named "zero-trust-data" and make sure your new JSON file follows the same structure as the provided JSON file in Option 1.
-* Where you want to use the widget in your application, import the component in the script code:
+* The API is now running and listening on port 8080.
+
+### Interaction:
+* The API is accessible at `http://localhost:8080`.
+* You can test the API by sending the following request:
   ```
-  import ZeroTrustScoreWidget from './components/ZeroTrustScoreWidget.vue';
+  http://localhost:8080/api/darkweb/scan?selector=<selector>&limit=<number>
   ```
-  Then, place the Zero-Trust Score component where you wish to use it in the relevant component:
+  For example, to scan dark web data for the domain 'google.com' and retrieve 4 records:
   ```
-  <zero-trust-score-widget />
+  http://localhost:8080/api/darkweb/scan?domain=google.com&limit=4
+  ```
+* You can send the request from your browser or via Postman.
+* You can also send the request using CURL in the terminal:
+  ```
+   curl "http://localhost:8080/api/darkweb/scan?selector=<selector>&limit=<number>"
   ```
 
 
