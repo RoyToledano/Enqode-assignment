@@ -33,7 +33,7 @@ For your convenience, you can use [this](https://github.com/user-attachments/fil
   ```
   vue add vuetify
   ```
-* Download the component from [here](https://raw.githubusercontent.com/RoyToledano/Enqode-assignment/main/part3/src/components/ZeroTrustScoreWidget.vue).
+* Download the component from [here](https://github.com/RoyToledano/Enqode-assignment/blob/main/part3/src/components/ZeroTrustScoreWidget.vue) by clicking the download icon on the right side of the bar above the code.
 * Add the component file to the "components" directory in your Vue application project.
 * Create a new directory inside the "public" directory named "data".
 * Add the JSON file provided in Option 1 above, or create another JSON file named "zero-trust-data" and make sure your new JSON file follows the same structure as the provided JSON file in Option 1.
