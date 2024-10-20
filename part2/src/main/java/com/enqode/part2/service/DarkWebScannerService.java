@@ -20,7 +20,7 @@ public class DarkWebScannerService {
      * @param limit The given number of records requested.
      * @return The detailed information of the search result.
      */
-    public Mono<ResponseEntity<DetailedInformationResponse>> scanDomain(String selector, int limit) {
+    public Mono<ResponseEntity<DetailedInformationResponse>> scanSelector(String selector, int limit) {
         return intelXService.searchSelector(selector, limit)
                 .map(ResponseEntity::ok)
                 .onErrorResume(error -> {
